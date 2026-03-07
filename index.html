@@ -111,20 +111,10 @@
       animation: fadeUp 0.8s ease 0.4s forwards;
     }
 
-    /* Solid on all screens — no outline/haze effect */
     .hero-headline .accent-line {
       display: block;
-      color: var(--white);
-      opacity: 0.25;
-    }
-
-    /* On desktop only, use the outline effect */
-    @media (min-width: 768px) {
-      .hero-headline .accent-line {
-        color: transparent;
-        opacity: 1;
-        -webkit-text-stroke: 1px rgba(240,240,240,0.35);
-      }
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,240,240,0.35);
     }
 
     .hero-sub {
@@ -360,13 +350,25 @@
   </footer>
 
   <script>
+    // Sticky nav
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
+
+    // Mobile tap effect
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('touchstart', () => card.classList.add('tapped'));
       card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('tapped'), 400));
+    });
+
+    // Prevent pinch zoom on iOS (Safari ignores user-scalable=no)
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
     });
   </script>
 
