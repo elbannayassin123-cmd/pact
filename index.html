@@ -176,7 +176,6 @@
       margin-bottom: 64px;
     }
 
-    /* Fixed: 4-column on desktop so no orphan gap */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -202,7 +201,30 @@
       padding: 40px 32px;
       transition: background 0.2s;
     }
-    .feature-card:hover { background: var(--surface); }
+
+    /* Hover for desktop */
+    .feature-card:hover {
+      background: var(--surface);
+    }
+    .feature-card:hover .feature-number {
+      color: var(--rust);
+    }
+
+    /* Touch tap effect for mobile */
+    .feature-card:active {
+      background: var(--surface);
+    }
+    .feature-card:active .feature-number {
+      color: var(--rust);
+    }
+
+    /* Keep orange on mobile after tap using JS class */
+    .feature-card.tapped {
+      background: var(--surface);
+    }
+    .feature-card.tapped .feature-number {
+      color: var(--rust);
+    }
 
     .feature-number {
       font-family: 'Bebas Neue', sans-serif;
@@ -212,7 +234,6 @@
       margin-bottom: 20px;
       transition: color 0.2s;
     }
-    .feature-card:hover .feature-number { color: var(--rust); }
 
     .feature-title {
       font-size: 15px;
@@ -373,7 +394,8 @@
     <span class="footer-logo">Pact &nbsp;·&nbsp; Make a pact. Follow through.</span>
     <div class="footer-links">
       <a href="https://instagram.com/startpact" target="_blank">Instagram</a>
-      <a href="mailto:hello@startpact.com">Contact</a>
+      <a href="mailto:ali@pactapp.co.uk">Ali</a>
+      <a href="mailto:yassin@pactapp.co.uk">Yassin</a>
     </div>
   </footer>
 
@@ -381,6 +403,16 @@
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Orange tap effect on mobile
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('touchstart', () => {
+        card.classList.add('tapped');
+      });
+      card.addEventListener('touchend', () => {
+        setTimeout(() => card.classList.remove('tapped'), 400);
+      });
     });
   </script>
 
