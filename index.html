@@ -185,15 +185,10 @@
     }
 
     @media (max-width: 768px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 480px) {
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
+      .features-grid { grid-template-columns: 1fr; }
     }
 
     .feature-card {
@@ -201,30 +196,12 @@
       padding: 40px 32px;
       transition: background 0.2s;
     }
-
-    /* Hover for desktop */
-    .feature-card:hover {
-      background: var(--surface);
-    }
-    .feature-card:hover .feature-number {
-      color: var(--rust);
-    }
-
-    /* Touch tap effect for mobile */
-    .feature-card:active {
-      background: var(--surface);
-    }
-    .feature-card:active .feature-number {
-      color: var(--rust);
-    }
-
-    /* Keep orange on mobile after tap using JS class */
-    .feature-card.tapped {
-      background: var(--surface);
-    }
-    .feature-card.tapped .feature-number {
-      color: var(--rust);
-    }
+    .feature-card:hover { background: var(--surface); }
+    .feature-card:hover .feature-number { color: var(--rust); }
+    .feature-card:active { background: var(--surface); }
+    .feature-card:active .feature-number { color: var(--rust); }
+    .feature-card.tapped { background: var(--surface); }
+    .feature-card.tapped .feature-number { color: var(--rust); }
 
     .feature-number {
       font-family: 'Bebas Neue', sans-serif;
@@ -249,6 +226,7 @@
       line-height: 1.65;
     }
 
+    /* ── Ticker — no glitch ── */
     .tagline-bar {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -258,9 +236,16 @@
 
     .tagline-track {
       display: flex;
-      gap: 80px;
+      gap: 0;
       white-space: nowrap;
-      animation: ticker 20s linear infinite;
+      animation: ticker 30s linear infinite;
+      width: max-content;
+    }
+
+    .tagline-set {
+      display: flex;
+      gap: 0;
+      flex-shrink: 0;
     }
 
     .tagline-item {
@@ -269,6 +254,7 @@
       letter-spacing: 0.12em;
       color: var(--muted);
       flex-shrink: 0;
+      padding: 0 40px;
     }
     .tagline-item span { color: var(--rust); margin: 0 8px; }
 
@@ -289,7 +275,7 @@
       color: var(--muted);
     }
 
-    .footer-links { display: flex; gap: 32px; }
+    .footer-links { display: flex; gap: 32px; align-items: center; }
     .footer-links a {
       font-size: 12px;
       color: var(--muted);
@@ -352,14 +338,28 @@
 
   <div class="tagline-bar">
     <div class="tagline-track">
-      <span class="tagline-item">MAKE A PACT <span>·</span></span>
-      <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
-      <span class="tagline-item">SHOW UP <span>·</span></span>
-      <span class="tagline-item">HOLD EACH OTHER ACCOUNTABLE <span>·</span></span>
-      <span class="tagline-item">MAKE A PACT <span>·</span></span>
-      <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
-      <span class="tagline-item">SHOW UP <span>·</span></span>
-      <span class="tagline-item">HOLD EACH OTHER ACCOUNTABLE <span>·</span></span>
+      <!-- Set 1 -->
+      <div class="tagline-set">
+        <span class="tagline-item">MAKE A PACT <span>·</span></span>
+        <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
+        <span class="tagline-item">SHOW UP <span>·</span></span>
+        <span class="tagline-item">HOLD EACH OTHER ACCOUNTABLE <span>·</span></span>
+        <span class="tagline-item">NO EXCUSES <span>·</span></span>
+        <span class="tagline-item">YOUR GOALS <span>·</span></span>
+        <span class="tagline-item">YOUR PEOPLE <span>·</span></span>
+        <span class="tagline-item">STAY COMMITTED <span>·</span></span>
+      </div>
+      <!-- Set 2 (identical — seamless loop) -->
+      <div class="tagline-set">
+        <span class="tagline-item">MAKE A PACT <span>·</span></span>
+        <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
+        <span class="tagline-item">SHOW UP <span>·</span></span>
+        <span class="tagline-item">HOLD EACH OTHER ACCOUNTABLE <span>·</span></span>
+        <span class="tagline-item">NO EXCUSES <span>·</span></span>
+        <span class="tagline-item">YOUR GOALS <span>·</span></span>
+        <span class="tagline-item">YOUR PEOPLE <span>·</span></span>
+        <span class="tagline-item">STAY COMMITTED <span>·</span></span>
+      </div>
     </div>
   </div>
 
@@ -394,8 +394,7 @@
     <span class="footer-logo">Pact &nbsp;·&nbsp; Make a pact. Follow through.</span>
     <div class="footer-links">
       <a href="https://instagram.com/startpact" target="_blank">Instagram</a>
-      <a href="mailto:ali@pactapp.co.uk">Ali</a>
-      <a href="mailto:yassin@pactapp.co.uk">Yassin</a>
+      <a href="mailto:ali@pactapp.co.uk,yassin@pactapp.co.uk">Contact</a>
     </div>
   </footer>
 
@@ -405,7 +404,6 @@
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // Orange tap effect on mobile
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('touchstart', () => {
         card.classList.add('tapped');
