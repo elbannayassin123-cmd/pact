@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Pact — Make a pact. Follow through.</title>
   <meta name="description" content="The social accountability app for people who actually want to change. Join the waitlist." />
   <meta property="og:title" content="Pact — Make a pact. Follow through." />
@@ -59,12 +59,7 @@
       backdrop-filter: blur(12px);
       border-color: var(--border);
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .logo-text {
       font-family: 'DM Sans', sans-serif;
       font-weight: 500;
@@ -72,11 +67,7 @@
       color: var(--white);
       letter-spacing: 0.02em;
     }
-    .nav-handle {
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
+    .nav-handle { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
 
     .hero {
       min-height: 100vh;
@@ -92,11 +83,9 @@
     .hero::after {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -60%);
-      width: 600px;
-      height: 600px;
+      width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(217,121,74,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -122,10 +111,20 @@
       animation: fadeUp 0.8s ease 0.4s forwards;
     }
 
+    /* Solid on all screens — no outline/haze effect */
     .hero-headline .accent-line {
       display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(240,240,240,0.35);
+      color: var(--white);
+      opacity: 0.25;
+    }
+
+    /* On desktop only, use the outline effect */
+    @media (min-width: 768px) {
+      .hero-headline .accent-line {
+        color: transparent;
+        opacity: 1;
+        -webkit-text-stroke: 1px rgba(240,240,240,0.35);
+      }
     }
 
     .hero-sub {
@@ -155,8 +154,7 @@
     }
 
     .divider {
-      width: 1px;
-      height: 80px;
+      width: 1px; height: 80px;
       background: linear-gradient(to bottom, transparent, var(--border), transparent);
       margin: 80px auto;
     }
@@ -184,12 +182,8 @@
       border: 1px solid var(--border);
     }
 
-    @media (max-width: 768px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .features-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 768px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .features-grid { grid-template-columns: 1fr; } }
 
     .feature-card {
       background: var(--bg);
@@ -211,22 +205,9 @@
       margin-bottom: 20px;
       transition: color 0.2s;
     }
+    .feature-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 10px; letter-spacing: 0.02em; }
+    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-    .feature-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--white);
-      margin-bottom: 10px;
-      letter-spacing: 0.02em;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* ── Ticker — no glitch ── */
     .tagline-bar {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -236,17 +217,12 @@
 
     .tagline-track {
       display: flex;
-      gap: 0;
       white-space: nowrap;
       animation: ticker 30s linear infinite;
       width: max-content;
     }
 
-    .tagline-set {
-      display: flex;
-      gap: 0;
-      flex-shrink: 0;
-    }
+    .tagline-set { display: flex; flex-shrink: 0; }
 
     .tagline-item {
       font-family: 'Bebas Neue', sans-serif;
@@ -267,21 +243,11 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-
-    .footer-logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--muted);
-    }
-
+    .footer-logo { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 15px; color: var(--muted); }
     .footer-links { display: flex; gap: 32px; align-items: center; }
     .footer-links a {
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      transition: color 0.2s;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      letter-spacing: 0.06em; transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--white); }
 
@@ -289,7 +255,6 @@
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -307,9 +272,7 @@
 <body>
 
   <nav id="nav">
-    <a class="logo" href="#">
-      <span class="logo-text">Pact</span>
-    </a>
+    <a class="logo" href="#"><span class="logo-text">Pact</span></a>
     <span class="nav-handle">@startpact</span>
   </nav>
 
@@ -338,7 +301,6 @@
 
   <div class="tagline-bar">
     <div class="tagline-track">
-      <!-- Set 1 -->
       <div class="tagline-set">
         <span class="tagline-item">MAKE A PACT <span>·</span></span>
         <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
@@ -349,7 +311,6 @@
         <span class="tagline-item">YOUR PEOPLE <span>·</span></span>
         <span class="tagline-item">STAY COMMITTED <span>·</span></span>
       </div>
-      <!-- Set 2 (identical — seamless loop) -->
       <div class="tagline-set">
         <span class="tagline-item">MAKE A PACT <span>·</span></span>
         <span class="tagline-item">FOLLOW THROUGH <span>·</span></span>
@@ -403,14 +364,9 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
-
     document.querySelectorAll('.feature-card').forEach(card => {
-      card.addEventListener('touchstart', () => {
-        card.classList.add('tapped');
-      });
-      card.addEventListener('touchend', () => {
-        setTimeout(() => card.classList.remove('tapped'), 400);
-      });
+      card.addEventListener('touchstart', () => card.classList.add('tapped'));
+      card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('tapped'), 400));
     });
   </script>
 
