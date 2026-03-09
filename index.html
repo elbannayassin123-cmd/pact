@@ -320,23 +320,23 @@
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-number">01</div>
-        <div class="feature-title">Pick your number</div>
-        <div class="feature-desc">Choose how many days you'll commit. 7. 30. 90. Skin in the game, on your terms.</div>
+        <div class="feature-title">Set a goal</div>
+        <div class="feature-desc">Pick what you're committing to. Work out every day. Read for 30 minutes. Quit scrolling at midnight. Whatever it is, make it real.</div>
       </div>
       <div class="feature-card">
         <div class="feature-number">02</div>
-        <div class="feature-title">Make a pact</div>
-        <div class="feature-desc">Invite someone who won't let you slide. A friend, a rival, a stranger who gets it.</div>
+        <div class="feature-title">Create a pact</div>
+        <div class="feature-desc">Set your duration and lock in your check-in window, the time each day you prove you showed up. Miss it and your pact knows. Hit it and the streak grows.</div>
       </div>
       <div class="feature-card">
         <div class="feature-number">03</div>
-        <div class="feature-title">Show up daily</div>
-        <div class="feature-desc">Check in. Post proof. Watch your streak grow. Everyone can see who's showing up.</div>
+        <div class="feature-title">Invite your people</div>
+        <div class="feature-desc">Share a join code or find them on Pact and request them into your pact. Friends, rivals, strangers who get it. Whoever keeps you honest.</div>
       </div>
       <div class="feature-card">
         <div class="feature-number">04</div>
         <div class="feature-title">Follow through</div>
-        <div class="feature-desc">Finish what you started. The pact isn't just with them — it's with yourself.</div>
+        <div class="feature-desc">Check in daily and post your proof. Every pact has its own leaderboard so everyone in it knows exactly who's putting in the work and who isn't.</div>
       </div>
     </div>
   </section>
@@ -350,23 +350,17 @@
   </footer>
 
   <script>
-    // Sticky nav
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
-
-    // Mobile tap effect
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('touchstart', () => card.classList.add('tapped'));
       card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('tapped'), 400));
     });
-
-    // Prevent pinch zoom on iOS (Safari ignores user-scalable=no)
     document.addEventListener('touchmove', function(e) {
       if (e.touches.length > 1) e.preventDefault();
     }, { passive: false });
-
     document.addEventListener('gesturestart', function(e) {
       e.preventDefault();
     });
