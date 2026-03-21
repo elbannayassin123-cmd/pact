@@ -34,6 +34,7 @@
       overflow-x: hidden;
     }
 
+    /* Grain */
     body::before {
       content: '';
       position: fixed;
@@ -42,6 +43,19 @@
       opacity: 0.035;
       pointer-events: none;
       z-index: 9999;
+    }
+
+    /* Background paths — fixed, full page */
+    #bg-paths {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #bg-paths svg {
+      width: 100%;
+      height: 100%;
     }
 
     nav {
@@ -79,7 +93,7 @@
       text-align: center;
       padding: 120px 24px 80px;
       position: relative;
-      overflow: hidden;
+      z-index: 1;
     }
 
     .hero::before {
@@ -159,10 +173,10 @@
       border-bottom: 1px solid var(--border);
       padding: 28px 0;
       overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
-    .tagline-bar:hover .tagline-track {
-      animation-duration: calc(var(--ticker-duration) / 1.6);
-    }
+
     .tagline-track {
       display: flex;
       white-space: nowrap;
@@ -184,6 +198,8 @@
       padding: 0 24px 120px;
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .features-label {
       text-align: center;
@@ -210,7 +226,8 @@
     @media (max-width: 480px) { .features-grid { grid-template-columns: 1fr; } }
 
     .feature-card {
-      background: var(--bg);
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(4px);
       padding: 40px 32px;
       opacity: 0;
       transform: translateY(20px);
@@ -222,11 +239,11 @@
     }
     .feature-card.in-view { opacity: 1; transform: translateY(0); }
     .feature-card:hover {
-      background: var(--surface);
+      background: rgba(17,17,17,0.9);
       box-shadow: 0 0 0 1px var(--accent), 0 0 20px 0 rgba(217,121,74,0.08);
     }
     .feature-card:hover .feature-number { color: var(--accent); }
-    .feature-card.tapped { background: var(--surface); }
+    .feature-card.tapped { background: rgba(17,17,17,0.9); }
     .feature-card.tapped .feature-number { color: var(--accent); }
 
     .feature-number {
@@ -250,6 +267,8 @@
       gap: 16px;
       opacity: 0;
       transform: translateY(20px);
+      position: relative;
+      z-index: 1;
       transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
     }
     footer.in-view { opacity: 1; transform: translateY(0); }
@@ -276,6 +295,13 @@
       60%  { -webkit-text-stroke: 1px rgba(217,121,74,0.7); }
       100% { -webkit-text-stroke: 1px rgba(240,240,240,0.35); color: transparent; }
     }
+    @keyframes drawPath {
+      0%   { stroke-dashoffset: 3000; opacity: 0; }
+      5%   { opacity: 0.8; }
+      50%  { stroke-dashoffset: 0; opacity: 0.6; }
+      95%  { opacity: 0.3; }
+      100% { stroke-dashoffset: -3000; opacity: 0; }
+    }
 
     @media (max-width: 600px) {
       nav { padding: 20px; }
@@ -287,6 +313,11 @@
   </style>
 </head>
 <body>
+
+  <!-- Full page background paths -->
+  <div id="bg-paths">
+    <svg viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
 
   <nav id="nav">
     <a class="logo" href="#"><span class="logo-text">Pact</span></a>
@@ -378,11 +409,34 @@
   </footer>
 
   <script>
+    // Nav
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
 
+    // Background paths
+    const svg = document.querySelector('#bg-paths svg');
+    for (let i = 0; i < 36; i++) {
+      const opacity = 0.03 + i * 0.015;
+      const width = 0.3 + i * 0.02;
+      const duration = 20 + Math.random() * 15;
+      const delay = -Math.random() * duration;
+      [-1, 1].forEach(pos => {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M${-380 - i * 5 * pos} ${-189 + i * 6}C${-380 - i * 5 * pos} ${-189 + i * 6} ${-312 - i * 5 * pos} ${216 - i * 6} ${152 - i * 5 * pos} ${343 - i * 6}C${616 - i * 5 * pos} ${470 - i * 6} ${684 - i * 5 * pos} ${875 - i * 6} ${684 - i * 5 * pos} ${875 - i * 6}`;
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', `rgba(240,240,240,${opacity})`);
+        path.setAttribute('stroke-width', width);
+        path.setAttribute('fill', 'none');
+        path.style.strokeDasharray = '3000';
+        path.style.strokeDashoffset = '3000';
+        path.style.animation = `drawPath ${duration}s linear ${delay}s infinite`;
+        svg.appendChild(path);
+      });
+    }
+
+    // Scroll reveals
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
