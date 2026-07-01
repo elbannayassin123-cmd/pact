@@ -416,13 +416,20 @@
   </footer>
 
   <script>
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => {
-        document.documentElement.classList.add('fonts-loaded');
+function revealHero() {
+      // Force Chrome to acknowledge layout before adding the class,
+      // otherwise the animation can silently fail to paint.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.documentElement.classList.add('fonts-loaded');
+        });
       });
-      setTimeout(() => document.documentElement.classList.add('fonts-loaded'), 1500);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(revealHero);
+      setTimeout(revealHero, 1500);
     } else {
-      document.documentElement.classList.add('fonts-loaded');
+      revealHero();
     }
 
     const nav = document.getElementById('nav');
